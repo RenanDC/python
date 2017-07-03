@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Alocações
+{% endblock title %}
+
+{% block tituloPagina %}
+Alocações
+{% endblock tituloPagina %}
+
+{% block content %}
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Colaborador</th>
+      <th>Projeto</th>
+      <th>Horas</th>
+      <th>Data</th>
+      <th>Ação</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for alocacao in lista %}
+    <tr>
+      <td>{{ alocacao.colaborador }}</td>
+      <td>{{ alocacao.projeto }}</td>
+      <td>{{ alocacao.horasUtilizadas }}</td>
+      <td>{{ alocacao.data }}</td>
+      <td>
+        <a href="{% url 'alocacao_edit' pk=alocacao.pk %}">
+          <span class="glyphicon glyphicon-pencil"></span>
+        </a>
+        <a href="{% url 'alocacao_remove' pk=alocacao.pk %}">
+          <span class="glyphicon glyphicon-trash"></span>
+        </a>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+<a href="{% url 'alocacao_new' %}">
+<button type="submit" class="btn btn-primary">
+    Cadastrar
+</button>
+</a>
+
+{% endblock content %}

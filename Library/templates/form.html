@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Cadastro
+{% endblock title %}
+
+{% block tituloPagina %}
+Cadastro
+{% endblock tituloPagina %}
+
+{% block content %}
+<div class="container">
+  <div class = "panel panel-default">
+    <h2>
+        <p class="bg-warning">Cadastro Alocação</p>
+    </h2>
+
+  <hr>
+    <form method="POST" class="post-form">{% csrf_token %}
+      <div class="form-group">
+          {{ form.data.errors }}
+          <label for="data">Data:</label>
+          <input id="id_data" class="form-control" name="data" value="{{ form.data.value|date:"Y-m-d" }}" type="text" data-date-format='yyyy-mm-dd' required/>
+      </div>
+      <div class="fieldWrapper">
+          {{ form.equipe.errors }}
+          <label for="equipe">Equipe:</label>
+          <select id="id_equipe" value="{{ form.equipe.value }}" name = "equipe" class="form-control" required>
+             <option value="Projetos">Monitoração</option>
+             <option value="PreVenda">Pre-Venda</option>
+             <option value="DAS">DAS</option>
+         </select>
+      </div>
+      <div class="fieldWrapper">
+          {{ form.colaborador.errors }}
+          <label for="colaborador">Colaborador:</label>
+          <input id="id_colaborador" value="{{ form.colaborador.value|default_if_none:"" }}" class="form-control" name="colaborador" type="text" required/>
+      </div>
+      <div class="fieldWrapper">
+          {{ form.cliente.errors }}
+          <label for="cliente">Cliente:</label>
+          <input id="id_cliente" class="form-control" value="{{ form.cliente.value|default_if_none:"" }}" name="cliente" type="text" required/>
+      </div>
+      <div class="fieldWrapper">
+          {{ form.projeto.errors }}
+          <label for="projeto">Projeto:</label>
+          <input id="id_projeto" class="form-control" value="{{ form.projeto.value|default_if_none:"" }}" name="projeto" type="text" required/>
+      </div>
+      <div class="fieldWrapper">
+          {{ form.horasUtilizadas.errors }}
+          <label for="horasUtilizadas">Horas:</label>
+          <input id="id_horasUtilizadas" value="{{ form.horasUtilizadas.value|default_if_none:"" }}" onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;" class="form-control" name="horasUtilizadas" maxlength="1" type="text" required/>
+      </div>
+      <div>
+      <button type="submit" class="btn btn-default">
+          Salvar
+      </button>
+      </div>
+    </form>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('#id_data').datetimepicker({
+            format: 'LT'
+        });
+    });
+</script>
+{% endblock %}
